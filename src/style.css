@@ -9,3 +9,9 @@ body,
 body {
   background: #f0f0f0;
 }
+
+
+.canvasContainer{
+  height: 100vh;
+  background-image: url(AvdarBackGround.png);
+}

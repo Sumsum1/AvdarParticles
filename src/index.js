@@ -6,7 +6,10 @@ import { Suspense } from 'react'
 
 render(
   <>
+  <Suspense fallback={null}>
       <App />
+  </Suspense>
+      
     <Stats />
   </>,
   document.getElementById('root'),
