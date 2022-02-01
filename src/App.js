@@ -1,10 +1,9 @@
 import * as THREE from 'three'
 import { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Instances, Instance, OrbitControls, Environment, useGLTF } from '@react-three/drei'
+import { Instances, Instance, OrbitControls, useGLTF } from '@react-three/drei'
 import { useControls } from 'leva'
-import { MeshStandardMaterial, MeshPhysicalMaterial } from 'three'
-import { AxisHelper } from 'three'
+import { MeshPhysicalMaterial } from 'three'
 
 const color = new THREE.Color()
 const randomVector = (r) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
