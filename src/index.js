@@ -10,7 +10,7 @@ render(
       <Suspense fallback={null}>
           <App />
       </Suspense> 
-      <Stats />
+      {/* <Stats /> */}
 
   
   </>,

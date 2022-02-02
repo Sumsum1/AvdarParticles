@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { Instances, Instance, OrbitControls, useGLTF } from '@react-three/drei'
-import { useControls } from 'leva'
 import { MeshPhysicalMaterial, MeshBasicMaterial } from 'three'
 
 const color = new THREE.Color()
@@ -12,7 +11,7 @@ const randomData = Array.from({ length: 1000 }, (r = 100) => ({ random: Math.ran
 
 export default function App() {
   //const { range } = useControls({ range: { value: 100, min: 0, max: 1000, step: 10 } })
-  const [rotatinY, setRotationY] = useState(0);
+  const [rotatinY, setRotationY] = useState(2.9);
   const groupRef = useRef();
 
 
@@ -81,7 +80,7 @@ export default function App() {
             minPolarAngle={Math.PI / 2.1}
             maxPolarAngle={Math.PI / 2.1}
           />
-          <axesHelper />
+          {/* <axesHelper /> */}
       </Canvas>
     </div>
     
