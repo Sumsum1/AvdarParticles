@@ -11,7 +11,7 @@ const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Mat
 const randomData = Array.from({ length: 1000 }, (r = 100) => ({ random: Math.random(), position: randomVector(r), rotation: randomEuler() }))
 
 export default function App() {
-  const { range } = useControls({ range: { value: 100, min: 0, max: 1000, step: 10 } })
+  //const { range } = useControls({ range: { value: 100, min: 0, max: 1000, step: 10 } })
   const [rotatinY, setRotationY] = useState(0);
   const groupRef = useRef();
 
