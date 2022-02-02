@@ -1,7 +1,8 @@
+
 import * as THREE from 'three'
 import { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Instances, Instance, OrbitControls, useGLTF } from '@react-three/drei'
+import { Instances, Instance, OrbitControls, useGLTF, Html } from '@react-three/drei'
 import { MeshPhysicalMaterial, MeshBasicMaterial } from 'three'
 
 const color = new THREE.Color()
@@ -25,8 +26,28 @@ export default function App() {
   }
 
   console.log('Orbit: ', OrbitControls)
+
+  const infoTubes = useLoader(
+    THREE.TextureLoader,
+    './hollo.png'
+  )
+
+  const PlaneInfo = () => {
+    return(
+      <mesh position={[10.5, 0, 5]}>
+      <planeBufferGeometry args={[12, 6, 1]}/>
+      <meshBasicMaterial 
+        //color={'red'}
+        transparent={true}
+        map={infoTubes}
+      />
+    </mesh>
+    )
+  } 
+
   return (
     <div className='canvasContainer'>
+      <img className='info' src='./hollo.png'/>
       <Canvas camera={{ position: [0, 10, -50], fov: 60 }} performance={{ min: 0.1 }}>
           <ambientLight intensity={0.1} />
           <directionalLight intensity={0.6} position={[5, 25, 20]} />
@@ -41,6 +62,7 @@ export default function App() {
                         <boxBufferGeometry attach="geometry" args={[11, 11, 11]} />
                         <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
                       </mesh>
+                      {/* <PlaneInfo /> */}
                       <ModelsH range={15}   />
                       {/* <Environment preset="city" /> */}
                   </group>
@@ -54,17 +76,20 @@ export default function App() {
                         <boxBufferGeometry attach="geometry" args={[6, 6, 6]} />
                         <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
                       </mesh>
+                      {/* <PlaneInfo /> */}
                       <ModelsCoil range={10} />
                 {/* <Environment preset="city" /> */}
                 </group>
               </Suspense>
 
+              
               <Suspense fallback={null}>
                 <group position={[5, 0, 30]}>
                       <mesh onPointerDown={switchMetals}>
-                        <boxBufferGeometry attach="geometry" args={[11, 11, 11]} />
+                        <boxBufferGeometry attach="geometry" args={[6, 6, 6]} />
                         <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
                       </mesh>
+                      {/* <PlaneInfo /> */}
                       <ModelsTube range={15} />
                 {/* <Environment preset="city" /> */}
                 </group>   

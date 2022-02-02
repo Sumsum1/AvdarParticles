@@ -8,7 +8,16 @@ body{
 
 
 .canvasContainer{
-  height: 100vh;;
+  z-index: -1;
+  height: 100vh;
   background-image: url(AvdarBackGround.png);
   background-size: cover;
+}
+
+.info{
+  z-index: 1;
+  width: 500px;
+  position: absolute;
+  right: 20%;
+  bottom: 10%;
 }
