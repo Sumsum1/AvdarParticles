@@ -5,6 +5,10 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { Instances, Instance, OrbitControls, useGLTF, Html } from '@react-three/drei'
 import { MeshPhysicalMaterial, MeshBasicMaterial, MeshPhongMaterial, MeshStandardMaterial, TextureLoader } from 'three'
 import { Environment } from '@react-three/drei'
+import { CubeClick } from './Components/CubeClick'
+import { SpriteInfo } from './Components/SpriteInfo'
+
+
 
 const color = new THREE.Color()
 const randomVector = (r) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
@@ -50,61 +54,44 @@ export default function App() {
           
           <group ref={groupRef} rotation={[0,rotatinY, 0] }  >
 
-          
                 <Suspense fallback={null}>
                   <group position={[-30, -2, 0]}>
-                      <sprite scale={[14, 5.5, 1]}  position={[0, 0, 15]}>
-                        <spriteMaterial attach="material" map={profetionalSprite} transparent />
-                      </sprite>
-                      <mesh  onPointerDown={() => window.open("https://www.a-albo.com/?page_id=1694&lang=en")}>
-                        <boxBufferGeometry ref={selectHRef} attach="geometry" args={[11, 11, 11]}/>
-                        <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
-                      </mesh>
-                      {/* <PlaneInfo /> */}
-                      <ModelsH range={15}   />
-                      <Environment preset="city" />
+                      <SpriteInfo 
+                        scale={[10, 4, 1]}  
+                        position={[0, -1, -11]} 
+                        map={profetionalSprite}
+                      />
+                      <CubeClick linkUrl={"https://www.a-albo.com/?page_id=1694&lang=en"}/>
+                      <ModelsH range={15} />
                   </group>
                 </Suspense>
 
-              
-
               <Suspense fallback={null}>
                 <group position={[25, 0, -20]}>
-                <sprite scale={[10, 4, 1]}  position={[0, -1, -11]}>
-                          <spriteMaterial attach="material" map={flatSprite} transparent />
-                      </sprite>
-                      <mesh onPointerDown={() => window.open("https://www.a-albo.com/?page_id=1694&lang=en")}>
-                        <boxBufferGeometry attach="geometry" args={[6, 6, 6]} />
-                        <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
-                      </mesh>
-                      {/* <PlaneInfo /> */}
+                      <SpriteInfo 
+                        scale={[14, 5.5, 1]}  
+                        position={[0, 0, 15]} 
+                        map={flatSprite}
+                      />
+                      <CubeClick linkUrl={"https://www.a-albo.com/?page_id=1694&lang=en"}/>
                       <ModelsCoil range={10} />
-                {/* <Environment preset="city" /> */}
                 </group>
               </Suspense>
 
-                      
-
-                      
-
-              
               <Suspense fallback={null}>
                 <group position={[5, 0, 30]}>
-                      <sprite scale={[13, 6.5, 1]}  position={[12, 0, 1]}>
-                        <spriteMaterial attach="material" map={holloSprite} transparent />
-                      </sprite>
-                      <mesh onPointerDown={() => window.open("https://www.a-albo.com/?page_id=1850&lang=en")}>
-                        <boxBufferGeometry attach="geometry" args={[6, 6, 6]} />
-                        <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
-                      </mesh>
-                      {/* <PlaneInfo /> */}
+                      <SpriteInfo 
+                        scale={[13, 6.5, 1]}  
+                        position={[12, 0, 1]} 
+                        map={holloSprite}
+                      />
+                      <CubeClick linkUrl={"https://www.a-albo.com/?page_id=1850&lang=en"}/>
                       <ModelsTube range={15} />
-                {/* <Environment preset="city" /> */}
                 </group>   
               </Suspense>
           </group>
           
-
+          <Environment preset="city" />
           <OrbitControls 
             autoRotate 
             autoRotateSpeed={0} 
