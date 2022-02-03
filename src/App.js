@@ -3,7 +3,8 @@ import * as THREE from 'three'
 import { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { Instances, Instance, OrbitControls, useGLTF, Html } from '@react-three/drei'
-import { MeshPhysicalMaterial, MeshBasicMaterial } from 'three'
+import { MeshPhysicalMaterial, MeshBasicMaterial, MeshPhongMaterial, MeshStandardMaterial, TextureLoader } from 'three'
+import { Environment } from '@react-three/drei'
 
 const color = new THREE.Color()
 const randomVector = (r) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
@@ -17,12 +18,13 @@ export default function App() {
 
 
 
+  const selectHRef = useRef();
 
-
-  const switchMetals = () => {
+  const openUrl = (e, url) => {
     //groupRef.current.rotation = groupRef.current.rotation.Y += 45; 
     console.log('groupRef: ' ,groupRef.current);
-
+    console.log('userData: ' ,selectHRef.current.userData);
+    window.open(selectHRef.current.userData.url);
   }
 
   console.log('Orbit: ', OrbitControls)
@@ -32,39 +34,35 @@ export default function App() {
     './hollo.png'
   )
 
-  const PlaneInfo = () => {
-    return(
-      <mesh position={[10.5, 0, 5]}>
-      <planeBufferGeometry args={[12, 6, 1]}/>
-      <meshBasicMaterial 
-        //color={'red'}
-        transparent={true}
-        map={infoTubes}
-      />
-    </mesh>
-    )
-  } 
+
+  const holloSprite = useLoader(TextureLoader, './hollo.png');
+  const flatSprite = useLoader(TextureLoader, './flat-products.png');
+  const profetionalSprite = useLoader(TextureLoader, './profetional-section.png');
+
+  
 
   return (
     <div className='canvasContainer'>
-      <img className='info' src='./hollo.png'/>
-      <Canvas camera={{ position: [0, 10, -50], fov: 60 }} performance={{ min: 0.1 }}>
-          <ambientLight intensity={0.1} />
-          <directionalLight intensity={0.6} position={[5, 25, 20]} />
+          <Canvas camera={{ position: [0, 10, -50], fov: 60 }} performance={{ min: 0.1 }}>
+          <ambientLight intensity={0.2} />
+          <directionalLight intensity={1} position={[5, 25, 20]} />
           <directionalLight intensity={0.6} position={[0, -20, 0]} color={'red'}/>
           
           <group ref={groupRef} rotation={[0,rotatinY, 0] }  >
 
           
                 <Suspense fallback={null}>
-                  <group position={[-30, 0, 0]}>
-                      <mesh onPointerDown={switchMetals}>
-                        <boxBufferGeometry attach="geometry" args={[11, 11, 11]} />
+                  <group position={[-30, -2, 0]}>
+                      <sprite scale={[14, 5.5, 1]}  position={[0, 0, 15]}>
+                        <spriteMaterial attach="material" map={profetionalSprite} transparent />
+                      </sprite>
+                      <mesh  onPointerDown={() => window.open("https://www.a-albo.com/?page_id=1694&lang=en")}>
+                        <boxBufferGeometry ref={selectHRef} attach="geometry" args={[11, 11, 11]}/>
                         <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
                       </mesh>
                       {/* <PlaneInfo /> */}
                       <ModelsH range={15}   />
-                      {/* <Environment preset="city" /> */}
+                      <Environment preset="city" />
                   </group>
                 </Suspense>
 
@@ -72,7 +70,10 @@ export default function App() {
 
               <Suspense fallback={null}>
                 <group position={[25, 0, -20]}>
-                      <mesh onPointerDown={switchMetals}>
+                <sprite scale={[10, 4, 1]}  position={[0, -1, -11]}>
+                          <spriteMaterial attach="material" map={flatSprite} transparent />
+                      </sprite>
+                      <mesh onPointerDown={() => window.open("https://www.a-albo.com/?page_id=1694&lang=en")}>
                         <boxBufferGeometry attach="geometry" args={[6, 6, 6]} />
                         <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
                       </mesh>
@@ -82,10 +83,17 @@ export default function App() {
                 </group>
               </Suspense>
 
+                      
+
+                      
+
               
               <Suspense fallback={null}>
                 <group position={[5, 0, 30]}>
-                      <mesh onPointerDown={switchMetals}>
+                      <sprite scale={[13, 6.5, 1]}  position={[12, 0, 1]}>
+                        <spriteMaterial attach="material" map={holloSprite} transparent />
+                      </sprite>
+                      <mesh onPointerDown={() => window.open("https://www.a-albo.com/?page_id=1850&lang=en")}>
                         <boxBufferGeometry attach="geometry" args={[6, 6, 6]} />
                         <meshStandardMaterial attach="material" opacity={0.0} transparent={true}/>
                       </mesh>
@@ -122,8 +130,12 @@ function ModelsH({ range, position }) {
   text.flipY = false;
   text.encoding = THREE.sRGBEncoding;
 
-  const matH = new MeshPhysicalMaterial({
+  const matH = new MeshStandardMaterial({
     map: text,
+    // color: 'gray',
+    metalness: 1,
+    reflectivity: 0.3,
+    roughnessMap : text
   })
   
   const { nodes  } = useGLTF('/HCenter.glb')
@@ -174,8 +186,11 @@ function ModelsCoil({ range, position }) {
   textCoil.flipY = false;
   textCoil.encoding = THREE.sRGBEncoding;
 
-  const matCoil = new MeshPhysicalMaterial({
+  const matCoil = new MeshStandardMaterial({
     map: textCoil,
+    metalness: 1,
+    reflectivity: 0.3,
+    roughnessMap : textCoil
   })
   
   const { nodes  } = useGLTF('/CoilCenter.glb')
@@ -218,8 +233,11 @@ function ModelsTube({ range, position }) {
   textTube.flipY = false;
   textTube.encoding = THREE.sRGBEncoding;
 
-  const matTube = new MeshPhysicalMaterial({
+  const matTube = new MeshStandardMaterial({
     map: textTube,
+    metalness: 1,
+    reflectivity: 0.3,
+    roughnessMap : textTube
   })
   
   const { nodes } = useGLTF('/TubeCenter.glb')

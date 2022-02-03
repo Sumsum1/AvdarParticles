@@ -16,8 +16,8 @@ body{
 
 .info{
   z-index: 1;
-  width: 500px;
+  width: 600px;
   position: absolute;
-  right: 20%;
+  right: 25%;
   bottom: 10%;
 }
