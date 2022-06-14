@@ -2,8 +2,8 @@
 import * as THREE from 'three'
 import { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Instances, Instance, OrbitControls, useGLTF, Html } from '@react-three/drei'
-import { MeshPhysicalMaterial, MeshBasicMaterial, MeshPhongMaterial, MeshStandardMaterial, TextureLoader } from 'three'
+import { Instances, Instance, OrbitControls, useGLTF, Stats } from '@react-three/drei'
+import { MeshStandardMaterial, TextureLoader } from 'three'
 import { Environment } from '@react-three/drei'
 import { CubeClick } from './Components/CubeClick'
 import { SpriteInfo } from './Components/SpriteInfo'
@@ -48,6 +48,7 @@ export default function App() {
   return (
     <div className='canvasContainer'>
           <Canvas camera={{ position: [0, 10, -50], fov: 60 }} performance={{ min: 0.1 }}>
+          <Stats />
           <ambientLight intensity={0.2} />
           <directionalLight intensity={1} position={[5, 25, 20]} />
           <directionalLight intensity={0.6} position={[0, -20, 0]} color={'red'}/>
@@ -56,36 +57,32 @@ export default function App() {
 
                 <Suspense fallback={null}>
                   <group position={[-30, -2, 0]}>
-                      <SpriteInfo 
-                        scale={[10, 4, 1]}  
-                        position={[0, -1, -11]} 
-                        map={profetionalSprite}
-                      />
-                      <CubeClick linkUrl={"https://www.a-albo.com/?page_id=1694&lang=en"}/>
+                      <sprite scale={[14, 5.5, 1]}  position={[0, 0, 15]}>
+                        <spriteMaterial attach="material" map={profetionalSprite} transparent />
+                      </sprite>
+                      //<SpriteInfo attach={"material"} scale={[14, 5.5, 1]}  position={[0, 0, 15]} map={profetionalSprite} />
+                      <CubeClick onPointerDown={() => window.open("https://a-albo.kpd.co.il/products/professional-sections/")} />
                       <ModelsH range={15} />
                   </group>
                 </Suspense>
 
               <Suspense fallback={null}>
                 <group position={[25, 0, -20]}>
-                      <SpriteInfo 
-                        scale={[14, 5.5, 1]}  
-                        position={[0, 0, 15]} 
-                        map={flatSprite}
-                      />
-                      <CubeClick linkUrl={"https://www.a-albo.com/?page_id=1694&lang=en"}/>
+                <sprite scale={[10, 4, 1]}  position={[0, -1, -11]}>
+                          <spriteMaterial attach="material" map={flatSprite} transparent />
+                      </sprite>
+                      
+                      <CubeClick onPointerDown={() => window.open("https://a-albo.kpd.co.il/products/flat-product/")} />
                       <ModelsCoil range={10} />
                 </group>
               </Suspense>
 
               <Suspense fallback={null}>
                 <group position={[5, 0, 30]}>
-                      <SpriteInfo 
-                        scale={[13, 6.5, 1]}  
-                        position={[12, 0, 1]} 
-                        map={holloSprite}
-                      />
-                      <CubeClick linkUrl={"https://www.a-albo.com/?page_id=1850&lang=en"}/>
+                      <sprite scale={[13, 6.5, 1]}  position={[12, 0, 1]}>
+                        <spriteMaterial attach="material" map={holloSprite} transparent />
+                      </sprite>
+                      <CubeClick onPointerDown={() => window.open("https://a-albo.kpd.co.il/products/hollow-sections-and-pipes/")} />
                       <ModelsTube range={15} />
                 </group>   
               </Suspense>

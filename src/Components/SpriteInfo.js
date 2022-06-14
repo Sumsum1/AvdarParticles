@@ -1,7 +1,7 @@
-export const SpriteInfo = ({map}) => {
+export const SpriteInfo = ({map, scale, position, attach}) => {
     return(
         <sprite>
-            <spriteMaterial attach="material" map={map} transparent />
+            <spriteMaterial attach={attach} map={map} scale={scale} position={position} transparent />
          </sprite>
     )
 }
