@@ -48,7 +48,7 @@ export default function App() {
   return (
     <div className='canvasContainer'>
           <Canvas camera={{ position: [0, 10, -50], fov: 60 }} performance={{ min: 0.1 }}>
-          <Stats />
+          {/* <Stats /> */}
           <ambientLight intensity={0.2} />
           <directionalLight intensity={1} position={[5, 25, 20]} />
           <directionalLight intensity={0.6} position={[0, -20, 0]} color={'red'}/>
